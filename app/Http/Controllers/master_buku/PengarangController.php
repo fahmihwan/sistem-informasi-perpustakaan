@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\master_buku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pengarang;
 use Illuminate\Http\Request;
 
 class PengarangController extends Controller
@@ -14,7 +15,10 @@ class PengarangController extends Controller
      */
     public function index()
     {
-        return view('pages.master_buku.pengarang.index');
+        $items = Pengarang::latest()->get();
+        return view('pages.master_buku.pengarang.index', [
+            'items' => $items
+        ]);
     }
 
     /**
@@ -24,7 +28,6 @@ class PengarangController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -35,7 +38,12 @@ class PengarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated =  $request->validate([
+            'nama' => 'required|unique:pengarangs'
+        ]);
+
+        Pengarang::create($validated);
+        return redirect('/master-buku/pengarang');
     }
 
     /**
@@ -57,7 +65,10 @@ class PengarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Pengarang::where('id', $id)->first();
+        return view('pages.master_buku.pengarang.edit', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -69,7 +80,13 @@ class PengarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|unique:pengarangs',
+        ]);
+
+        Pengarang::where('id', $id)->update($validated);
+
+        return redirect('/master-buku/pengarang');
     }
 
     /**
@@ -80,6 +97,7 @@ class PengarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pengarang::destroy($id);
+        return redirect('/master-buku/pengarang');
     }
 }

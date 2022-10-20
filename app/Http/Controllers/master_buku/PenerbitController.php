@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\master_buku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penerbit;
 use Illuminate\Http\Request;
 
 class PenerbitController extends Controller
@@ -14,7 +15,10 @@ class PenerbitController extends Controller
      */
     public function index()
     {
-        return view('pages.master_buku.penerbit.index');
+        $items = Penerbit::latest()->get();
+        return view('pages.master_buku.penerbit.index', [
+            'items' => $items
+        ]);
     }
 
     /**
@@ -35,7 +39,12 @@ class PenerbitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated =  $request->validate([
+            'nama' => 'required|unique:penerbits'
+        ]);
+
+        Penerbit::create($validated);
+        return redirect('/master-buku/penerbit');
     }
 
     /**
@@ -57,7 +66,10 @@ class PenerbitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Penerbit::where('id', $id)->first();
+        return view('pages.master_buku.penerbit.edit', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -69,7 +81,13 @@ class PenerbitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|unique:penerbits',
+        ]);
+
+        Penerbit::where('id', $id)->update($validated);
+
+        return redirect('/master-buku/penerbit');
     }
 
     /**
@@ -80,6 +98,7 @@ class PenerbitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Penerbit::destroy($id);
+        return redirect('/master-buku/penerbit');
     }
 }

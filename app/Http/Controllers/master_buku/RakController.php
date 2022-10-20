@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\master_buku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rak;
 use Illuminate\Http\Request;
 
 class RakController extends Controller
@@ -14,7 +15,10 @@ class RakController extends Controller
      */
     public function index()
     {
-        return view('pages.master_buku.rak.index');
+        $items = Rak::latest()->get();
+        return view('pages.master_buku.rak.index', [
+            'items' => $items
+        ]);
     }
 
     /**
@@ -35,7 +39,12 @@ class RakController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated =  $request->validate([
+            'nama' => 'required|unique:raks'
+        ]);
+
+        Rak::create($validated);
+        return redirect('/master-buku/rak');
     }
 
     /**
@@ -57,7 +66,10 @@ class RakController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Rak::where('id', $id)->first();
+        return view('pages.master_buku.rak.edit', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -69,7 +81,12 @@ class RakController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|unique:raks',
+        ]);
+
+        Rak::where('id', $id)->update($validated);
+        return redirect('/master-buku/rak');
     }
 
     /**
@@ -80,6 +97,7 @@ class RakController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Rak::destroy($id);
+        return redirect('/master-buku/rak');
     }
 }

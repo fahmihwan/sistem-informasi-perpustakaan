@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\master_buku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tahun_terbit;
 use Illuminate\Http\Request;
 
 class Tahun_terbitController extends Controller
@@ -14,7 +15,10 @@ class Tahun_terbitController extends Controller
      */
     public function index()
     {
-        return view('pages.master_buku.tahun_terbit.index');
+        $items = Tahun_terbit::latest()->get();
+        return view('pages.master_buku.tahun_terbit.index', [
+            'items' => $items
+        ]);
     }
 
     /**
@@ -35,7 +39,12 @@ class Tahun_terbitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated =  $request->validate([
+            'nama' => 'required|unique:tahun_terbits|numeric|min:4'
+        ]);
+
+        Tahun_terbit::create($validated);
+        return redirect('/master-buku/tahun-terbit');
     }
 
     /**
@@ -57,7 +66,10 @@ class Tahun_terbitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Tahun_terbit::where('id', $id)->first();
+        return view('pages.master_buku.tahun_terbit.edit', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -69,7 +81,12 @@ class Tahun_terbitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|unique:tahun_terbits',
+        ]);
+
+        Tahun_terbit::where('id', $id)->update($validated);
+        return redirect('/master-buku/tahun-terbit');
     }
 
     /**
@@ -80,6 +97,7 @@ class Tahun_terbitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Tahun_terbit::destroy($id);
+        return redirect('/master-buku/tahun-terbit');
     }
 }

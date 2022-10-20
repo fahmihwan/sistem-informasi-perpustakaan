@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\buku;
 
 use App\Http\Controllers\Controller;
+use App\Models\Buku;
+use App\Models\Kategori;
+use App\Models\Penerbit;
+use App\Models\Pengarang;
+use App\Models\Rak;
+use App\Models\Tahun_terbit;
 use Illuminate\Http\Request;
 
 class BukuController extends Controller
@@ -14,7 +20,18 @@ class BukuController extends Controller
      */
     public function index()
     {
-        return view('pages.buku.index');
+        $items = Buku::with([
+            'pengarang:id,nama',
+            'penerbit:id,nama',
+            'rak:id,nama',
+            'tahun_terbit:id,nama',
+            'kategori:id,nama',
+        ])->latest()->get();
+
+        // return $items;
+        return view('pages.buku.index', [
+            'items' => $items
+        ]);
     }
 
     /**
@@ -24,7 +41,18 @@ class BukuController extends Controller
      */
     public function create()
     {
-        return view('pages.buku.create');
+        $pengarangs = Pengarang::latest()->get();
+        $penerbits = Penerbit::latest()->get();
+        $tahun_terbits = Tahun_terbit::latest()->get();
+        $raks = Rak::latest()->get();
+        $kategoris = Kategori::latest()->get();
+        return view('pages.buku.create', [
+            'pengarangs' => $pengarangs,
+            'penerbits' => $penerbits,
+            'tahun_terbits' => $tahun_terbits,
+            'raks' => $raks,
+            'kategoris' => $kategoris,
+        ]);
     }
 
     /**
@@ -35,7 +63,21 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated =   $request->validate([
+            'judul' => 'required|unique:bukus',
+            'slug' => 'required|unique:bukus',
+            'pengarang_id' => 'required|numeric',
+            'penerbit_id' => 'required|numeric',
+            'tahun_terbit_id' => 'required|numeric',
+            'rak_id' => 'required|numeric',
+            'kategori_id' => 'required|numeric',
+            'qty' => 'required|numeric'
+        ]);
+
+        $validated['qty_peminjaman'] = 0;
+
+        Buku::create($validated);
+        return redirect('/buku');
     }
 
     /**
@@ -55,9 +97,23 @@ class BukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $buku = Buku::where('slug', $slug)->first();
+        $pengarangs = Pengarang::latest()->get();
+        $penerbits = Penerbit::latest()->get();
+        $tahun_terbits = Tahun_terbit::latest()->get();
+        $raks = Rak::latest()->get();
+        $kategoris = Kategori::latest()->get();
+
+        return view('pages.buku.edit', [
+            'buku' => $buku,
+            'pengarangs' => $pengarangs,
+            'penerbits' => $penerbits,
+            'tahun_terbits' => $tahun_terbits,
+            'raks' => $raks,
+            'kategoris' => $kategoris,
+        ]);
     }
 
     /**
