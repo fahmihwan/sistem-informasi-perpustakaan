@@ -38,10 +38,19 @@ class AuthController extends Controller
         return back()->with('loginError', 'Login failed!');
     }
 
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
+
     public function index()
     {
-        $items =  Petugas::with(['credential'])->latest()->get();
 
+        $items =  Petugas::with(['credential'])->latest()->get();
 
         return view('pages.account.index', [
             'items' =>  $items

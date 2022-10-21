@@ -142,7 +142,18 @@ class PeminjamanController extends Controller
      */
     public function destroy($id)
     {
-        Peminjaman::destroy($id);
+        $peminjaman = Peminjaman::where('id', $id)->first();
+        $buku = Buku::where('id', $peminjaman->buku_id);
+        try {
+            DB::beginTransaction();
+            $buku->update([
+                'qty_peminjaman' => $buku->first()->qty_peminjaman -= 1
+            ]);
+            Peminjaman::destroy($id);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
         return redirect('/transaksi/peminjaman');
     }
 

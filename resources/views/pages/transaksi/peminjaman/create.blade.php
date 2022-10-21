@@ -13,11 +13,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Buku</h1>
+                    <h1 class="m-0">Tambah Peminjaman</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><a href="/buku">Buku</a></li>
+                        <li class="breadcrumb-item active"><a href="/transaksi/peminjaman">Peminjaman</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -82,14 +82,6 @@
                                                 class="form-control select2 @error('anggota_id') is-invalid @enderror"
                                                 style="width: 100%;" id="anggota" disabled>
                                                 <option disabled selected="selected"> -- select -- </option>
-                                                {{-- @foreach ($roles as $item)
-                                                    @if (old('anggota_id') == $item->id)
-                                                        <option value="{{ $item->id }}" selected>{{ $item->nama }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                    @endif
-                                                @endforeach --}}
                                             </select>
                                             @error('anggota_id')
                                                 <div class="invalid-feedback">
@@ -117,7 +109,8 @@
                                                     <label for="tgl_kembali">Tanggal Kembali</label>
                                                     <input type="date" name="tanggal_kembali"
                                                         class="form-control @error('tanggal_kembali') is-invalid @enderror"
-                                                        id="tgl_kembali" required value="{{ old('tanggal_kembali') }}">
+                                                        id="tgl_kembali" required value="{{ old('tanggal_kembali') }}"
+                                                        readonly>
                                                     @error('tanggal_kembali')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}

@@ -11,11 +11,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Peminjaman</h1>
+                    <h1 class="m-0">Buku</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">peminjaman</li>
+                        <li class="breadcrumb-item active">Buku</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,14 +28,21 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-
+                    @if ($errors->any())
+                        <div class="alert alert-danger p-0" role="alert">
+                            <ul class="my-2">
+                                @foreach ($errors->all() as $error)
+                                    <li> {{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between" style="width: 100%">
-                                <h3 class="card-title">List Peminjaman </h3>
-                                <!-- Button trigger modal -->
-                                <a href="/transaksi/peminjaman/create" type="button" class="btn btn-sm btn-primary">
+                                <h3 class="card-title">List Buku</h3>
+                                <a href="/buku/create" type="button" class="btn btn-sm btn-primary">
                                     <i class="fa-solid fa-plus"></i> Tambah Data
                                 </a>
                             </div>
@@ -46,33 +53,35 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Buku</th>
-                                        <th>Tgl Pinjam</th>
-                                        <th>Tgl Kembali</th>
-                                        <th>Status</th>
+                                        <th>Judul</th>
+                                        <th>Pengarang</th>
+                                        <th>Penerbit</th>
+                                        <th>Tahun Terbit</th>
+                                        <th>Kategori</th>
+                                        <th>Rak</th>
+                                        <th>Qty</th>
+                                        <th style="width: 10px">Qty Peminjaman</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($items as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }} </td>
-                                            <td>{{ $item->anggota->nama }} ({{ $item->anggota->role->nama }})</td>
-                                            <td>{{ $item->buku->judul }}</td>
-                                            <td>{{ $item->tanggal_pinjam }}</td>
-                                            <td>{{ $item->tanggal_kembali }}</td>
-                                            <td>
-                                                <div
-                                                    class="badge {{ $item->status == 'dipinjam' ? 'bg-danger' : 'bg-success' }}">
-                                                    {{ $item->status }}</div>
-                                            </td>
-                                            <td class="d-flex justify-content-center">
-                                                {{-- <a href="/transaksi/peminjaman/{{ $item->id }}/edit"
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->judul }}</td>
+                                            <td>{{ $item->pengarang->nama }}</td>
+                                            <td>{{ $item->penerbit->nama }}</td>
+                                            <td>{{ $item->tahun_terbit->nama }}</td>
+                                            <td>{{ $item->kategori->nama }}</td>
+                                            <td>{{ $item->rak->nama }}</td>
+                                            <td>{{ $item->qty }}</td>
+                                            <td>{{ $item->qty_peminjaman }}</td>
+                                            <td class="d-flex">
+                                                <a href="/buku/{{ $item->slug }}/edit"
                                                     class="btn btn-sm btn-warning mr-2">
                                                     <i class="fa-regular fa-pen-to-square"></i>
-                                                </a> --}}
-                                                <form action="/transaksi/peminjaman/{{ $item->id }}" method="post">
+                                                </a>
+                                                <form action="/buku/{{ $item->slug }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-sm btn-danger"
@@ -88,11 +97,14 @@
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Buku</th>
-                                        <th>Tgl Pinjam</th>
-                                        <th>Tgl Kembali</th>
-                                        <th>Status</th>
+                                        <th>Judul</th>
+                                        <th>Pengarang</th>
+                                        <th>Penerbit</th>
+                                        <th>Tahun Terbit</th>
+                                        <th>Kategori</th>
+                                        <th>Rak</th>
+                                        <th>Qty</th>
+                                        <th style="width: 10px">Qty Peminjaman</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -107,6 +119,9 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+
+
+
 @endsection
 
 

@@ -23,6 +23,44 @@
     </div>
     <!-- /.content-header -->
 
+
+    <section class="content">
+        <div class="container-fluid ">
+            <div class="card ">
+                <div class="card-body p-1">
+                    <div class="row">
+                        <div class="col-4 ">
+                            <form action="" method="GET" class="d-flex ">
+                                <div class="form-group ml-3">
+                                    <label for="">start date</label>
+                                    <input type="date" name="start_date" required class="form-control"
+                                        value="{{ request('start_date') }}">
+                                </div>
+                                <div class="form-group ml-3">
+                                    <label for="">end date</label>
+                                    <input type="date" name="end_date" required class="form-control"
+                                        value="{{ request('end_date') }}">
+                                </div>
+                                <div class="d-flex ml-3 " style="margin-top:30px;">
+                                    <button type="submit" class="btn btn-primary" style="height: 40px">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                    <button name="print" value="ok" class="btn btn-info ml-2 ms-2"
+                                        style="height: 40px">
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
+                                    <a href="/report/pemin" class="btn btn-warning ml-2 ms-2" style="height: 40px">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
@@ -73,15 +111,9 @@
                                                     class="btn btn-sm btn-warning mr-2">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a> --}}
-                                                <form action="/anggota/role/{{ $item->id }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-sm btn-danger"
-                                                        onClick="return confirm('Are you sure?')">
-                                                        <i class="fa-regular fa-trash-can"></i>
-                                                    </button>
-                                                </form>
-
+                                                <a href="" class="btn btn-sm btn-info">
+                                                    <i class="fa-solid fa-print"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

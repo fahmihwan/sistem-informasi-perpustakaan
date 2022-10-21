@@ -1,8 +1,6 @@
 @extends('component.main')
 
 @section('style')
-    <!-- DataTables -->
-    <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endsection
@@ -45,7 +43,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
-                                Form Buku
+                                Form Pengembalian
                                 <a href="/transaksi/pengembalian"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
                             </div>
                         </div>
@@ -79,16 +77,31 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="tgl_pengembalian">Tanggal Pengembalian</label>
-                                            <input type="date" name="tanggal_pengembalian"
-                                                class="form-control @error('tanggal_pengembalian') is-invalid @enderror"
-                                                id="tgl_pengembalian" required value="{{ old('tanggal_pengembalian') }}">
-                                            @error('tanggal_pengembalian')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="tgl_pengembalian">Tanggal Peminjaman</label>
+                                                    <div class="d-flex align-items-center justify-content-center mt-1">
+                                                        <span id="date-pinjam"
+                                                            class="badge badge-success"style="font-size: 20px"></span>
+                                                    </div>
                                                 </div>
-                                            @enderror
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="tgl_pengembalian">Tanggal Pengembalian</label>
+                                                    <input type="date" name="tanggal_pengembalian"
+                                                        class="form-control @error('tanggal_pengembalian') is-invalid @enderror"
+                                                        id="tgl_pengembalian" required
+                                                        value="{{ old('tanggal_pengembalian') }}">
+                                                    @error('tanggal_pengembalian')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <input type="hidden" name="denda" readonly id="input_denda">
                                         <input type="hidden" name="buku_id" readonly id="input_buku_id">
@@ -154,6 +167,7 @@
 @section('script')
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('.select2').select2()
@@ -167,7 +181,12 @@
                     dataType: 'json', // added data type
                     success: function(res) {
                         if (res.status == 200) {
+
+                            var date = res.data.tanggal_pinjam.split('-')
+                            let convertDate = date[2] + '/' + date[1] + '/' + date[0]
+
                             $('#pinjam').text(res.data.tanggal_pinjam);
+                            $('#date-pinjam').text(convertDate);
                             $('#kembali').text(res.data.tanggal_kembali);
                             $('#status').text(res.data.status);
                             $('#input_buku_id').val(res.data.buku_id)
@@ -214,7 +233,6 @@
                                                 </div>
                                             </div>`
                         }
-
                         $(`#detail-buku`).html(text)
                     }
                 });

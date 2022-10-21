@@ -74,10 +74,15 @@
                 <i class="fa-solid fa-gear"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {{-- @if (auth()->user()->hak_akses == 'kepala_sekolah') --}}
                 <a class="dropdown-item" href="/account">Account</a>
-                {{-- <a class="dropdown-item" href="#">Support</a> --}}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
+                {{-- @endif --}}
+
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button class="dropdown-item">Logout</button>
+                </form>
             </div>
         </li>
 

@@ -28,7 +28,6 @@ class BukuController extends Controller
             'kategori:id,nama',
         ])->latest()->get();
 
-        // return $items;
         return view('pages.buku.index', [
             'items' => $items
         ]);

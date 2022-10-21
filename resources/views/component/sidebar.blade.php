@@ -14,7 +14,9 @@
                 <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">
+                    {{-- {{ auth()->user()->username }} --}}
+                </a>
             </div>
         </div>
 
@@ -29,136 +31,141 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-header">Master</li>
-                <li class="nav-item menu-close">
-                    <a href="#" class="nav-link ">
-                        <i class="fa-solid fa-book-open"></i> &nbsp;
-                        <p>
-                            Master Buku
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ml-4">
-                        <li class="nav-item">
-                            <a href="/master-buku/kategori" class="nav-link">
-                                <i class="fa-solid fa-layer-group"></i> &nbsp;
-                                <p>Kategori</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/master-buku/pengarang" class="nav-link">
-                                <i class="fa-solid fa-user-tie"></i> &nbsp;
-                                <p>Pengarang</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/master-buku/penerbit" class="nav-link">
-                                <i class="fa-solid fa-building"></i> &nbsp;
-                                <p>Penerbit</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/master-buku/rak" class="nav-link">
-                                <i class="fa-solid fa-warehouse"></i> &nbsp;
-                                <p>Rak</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/master-buku/tahun-terbit" class="nav-link">
-                                <i class="fa-solid fa-calendar-days"></i> &nbsp;
-                                <p>Tahun Terbit</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="/buku" class="nav-link">
-                        <i class="fa-solid fa-book"></i> &nbsp;
-                        <p>
-                            Buku
-                        </p>
-                    </a>
-                </li>
 
-                <li class="nav-header">anggota</li>
-                <li class="nav-item menu-close">
-                    <a href="#" class="nav-link ">
-                        <i class="fa-solid fa-users"></i> &nbsp;
-                        <p>
-                            Anggota
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ml-4">
-                        <li class="nav-item">
-                            <a href="/anggota/role" class="nav-link">
-                                <i class="fa-solid fa-key"></i> &nbsp;
-                                <p>Role</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/anggota/anggota" class="nav-link">
-                                <i class="fa-solid fa-user-group"></i> &nbsp;
-                                <p>Anggota</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-header">Transaksi</li>
-                <li class="nav-item">
-                    <a href="/transaksi/peminjaman" class="nav-link">
-                        <i class="fa-solid fa-cart-plus"></i> &nbsp;
-                        <p>
-                            Peminjaman
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/transaksi/pengembalian" class="nav-link">
-                        {{-- <i class="fa-solid fa-people-carry-box"></i> &nbsp; --}}
-                        <i class="fa-solid fa-people-carry-box"></i> &nbsp;
-                        <p>
-                            Pengembalian
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">Report</li>
-                <li class="nav-item menu-close">
-                    <a href="#" class="nav-link ">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Report
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link ">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pengarang</p>
-                            </a>
-                        </li>
+                @if (auth()->user()->hak_akses == 'petugas')
+                    <li class="nav-header">Master</li>
+                    <li class="nav-item menu-close">
+                        <a href="#" class="nav-link ">
+                            <i class="fa-solid fa-book-open"></i> &nbsp;
+                            <p>
+                                Master Buku
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="/master-buku/kategori" class="nav-link">
+                                    <i class="fa-solid fa-layer-group"></i> &nbsp;
+                                    <p>Kategori</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master-buku/pengarang" class="nav-link">
+                                    <i class="fa-solid fa-user-tie"></i> &nbsp;
+                                    <p>Pengarang</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master-buku/penerbit" class="nav-link">
+                                    <i class="fa-solid fa-building"></i> &nbsp;
+                                    <p>Penerbit</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master-buku/rak" class="nav-link">
+                                    <i class="fa-solid fa-warehouse"></i> &nbsp;
+                                    <p>Rak</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master-buku/tahun-terbit" class="nav-link">
+                                    <i class="fa-solid fa-calendar-days"></i> &nbsp;
+                                    <p>Tahun Terbit</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/buku" class="nav-link">
+                            <i class="fa-solid fa-book"></i> &nbsp;
+                            <p>
+                                Buku
+                            </p>
+                        </a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Penerbit</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Rak</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tahun Terbit</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-header">anggota</li>
+                    <li class="nav-item menu-close">
+                        <a href="#" class="nav-link ">
+                            <i class="fa-solid fa-users"></i> &nbsp;
+                            <p>
+                                Anggota
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="/anggota/role" class="nav-link">
+                                    <i class="fa-solid fa-key"></i> &nbsp;
+                                    <p>Role</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/anggota/anggota" class="nav-link">
+                                    <i class="fa-solid fa-user-group"></i> &nbsp;
+                                    <p>Anggota</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-header">Transaksi</li>
+                    <li class="nav-item">
+                        <a href="/transaksi/peminjaman" class="nav-link">
+                            <i class="fa-solid fa-cart-plus"></i> &nbsp;
+                            <p>
+                                Peminjaman
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/transaksi/pengembalian" class="nav-link">
+                            <i class="fa-solid fa-people-carry-box"></i> &nbsp;
+                            <p>
+                                Pengembalian
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                @if (auth()->user()->hak_akses == 'kepala_sekolah')
+                    <li class="nav-header">Report</li>
+                    <li class="nav-item menu-close">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Report
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/report/peminjaman" class="nav-link ">
+                                    <i class="fa-solid fa-cart-plus"></i> &nbsp;
+                                    <p>Peminjaman</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/report/pengembalian" class="nav-link">
+                                    <i class="fa-solid fa-people-carry-box"></i> &nbsp;
+                                    <p>Pengembalian</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/report/buku" class="nav-link">
+                                    <i class="fa-solid fa-book-open"></i> &nbsp;
+                                    <p>Buku</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/report/anggota" class="nav-link">
+                                    <i class="fa-solid fa-users"></i> &nbsp;
+                                    <p>Anggota</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
