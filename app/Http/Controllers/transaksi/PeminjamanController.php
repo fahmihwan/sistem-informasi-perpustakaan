@@ -77,7 +77,7 @@ class PeminjamanController extends Controller
         }
         try {
             DB::beginTransaction();
-            $validated['petugas_id'] = 1;
+            $validated['petugas_id'] = auth()->user()->id;
             $validated['status'] = 'dipinjam';
 
             $buku  = Buku::where('id', $request->buku_id);

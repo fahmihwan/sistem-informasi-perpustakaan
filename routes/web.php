@@ -4,6 +4,7 @@ use App\Http\Controllers\anggota\AnggotaController;
 use App\Http\Controllers\anggota\RoleController;
 use App\Http\Controllers\authentication\AuthController;
 use App\Http\Controllers\buku\BukuController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\master_buku\KategoriController;
 use App\Http\Controllers\master_buku\PenerbitController;
@@ -58,6 +59,8 @@ Route::get('/report/pengembalian', [ReportController::class, 'report_pengembalia
 Route::get('/report/buku', [ReportController::class, 'report_buku']);
 Route::get('/report/anggota', [ReportController::class, 'report_anggota']);
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::Post('/login', [AuthController::class, 'authenticate']);
 Route::Post('/logout', [AuthController::class, 'logout']);
+
+Route::get('/create', [Controller::class, 'create']);

@@ -18,6 +18,8 @@ class ReportController extends Controller
             'anggota.role:id,nama',
         ])->latest()->get();
 
+        return $peminjaman;
+
         return view('pages.report.peminjaman', [
             'items' => $peminjaman
         ]);

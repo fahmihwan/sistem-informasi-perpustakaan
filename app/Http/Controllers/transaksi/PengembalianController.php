@@ -68,7 +68,7 @@ class PengembalianController extends Controller
             DB::beginTransaction();
 
             Peminjaman::where('anggota_id', $request->anggota_id)->update(['status' => 'dikembalikan']);
-            $validator["petugas_id"] = 1;
+            $validator["petugas_id"] = auth()->user()->id;
             Pengembalian::create($validator);
 
             $buku = Buku::where('id', $request->buku_id);

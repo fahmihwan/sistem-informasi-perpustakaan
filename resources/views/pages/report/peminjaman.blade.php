@@ -89,6 +89,7 @@
                                         <th>Tgl Pinjam</th>
                                         <th>Tgl Kembali</th>
                                         <th>Status</th>
+                                        <th>Petugas</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -100,11 +101,13 @@
                                             <td>{{ $item->buku->judul }}</td>
                                             <td>{{ $item->tanggal_pinjam }}</td>
                                             <td>{{ $item->tanggal_kembali }}</td>
+
                                             <td>
                                                 <div
                                                     class="badge {{ $item->status == 'dipinjam' ? 'bg-danger' : 'bg-success' }}">
                                                     {{ $item->status }}</div>
                                             </td>
+                                            <td>{{ $item->tanggal_kembali }}</td>
                                             <td class="d-flex justify-content-center">
                                                 {{-- <a href="/transaksi/peminjaman/{{ $item->id }}/edit"
                                                     class="btn btn-sm btn-warning mr-2">
