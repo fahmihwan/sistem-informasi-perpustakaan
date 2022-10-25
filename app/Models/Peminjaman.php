@@ -13,16 +13,16 @@ class Peminjaman extends Model
 
     public function buku()
     {
-        return $this->belongsTo(Buku::class);
+        return $this->belongsTo(Buku::class)->withTrashed();
     }
 
     public function anggota()
     {
-        return $this->belongsTo(Anggota::class);
+        return $this->belongsTo(Anggota::class)->withTrashed();
     }
     public function petugas()
     {
-        return $this->belongsTo(Petugas::class);
+        return $this->belongsTo(Petugas::class)->withTrashed();
     }
 
     public function scopeFilter($query, array $filters)

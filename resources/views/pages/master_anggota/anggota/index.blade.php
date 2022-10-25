@@ -75,7 +75,7 @@
                                                     class="btn btn-sm btn-warning mr-2">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <form action="/anggota/anggota{{ $item->id }}" method="post">
+                                                <form action="/anggota/anggota/{{ $item->id }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-sm btn-danger"

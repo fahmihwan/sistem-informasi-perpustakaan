@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('hak_akses', ['petugas', 'kepala_sekolah']);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

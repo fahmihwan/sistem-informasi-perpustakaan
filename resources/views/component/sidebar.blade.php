@@ -9,9 +9,9 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+        <div class="user-panel mt-3 pl-2 pb-3 mb-3 d-flex">
+            <div class=" bg-white d-flex  align-items-center justify-content-center rounded-pill" style="width: 34px;">
+                <i class="far fa-user"></i>
             </div>
             <div class="info">
                 <a href="#" class="d-block">

@@ -52,6 +52,7 @@ class AuthController extends Controller
 
         $items =  Petugas::with(['credential'])->latest()->get();
 
+
         return view('pages.account.index', [
             'items' =>  $items
         ]);

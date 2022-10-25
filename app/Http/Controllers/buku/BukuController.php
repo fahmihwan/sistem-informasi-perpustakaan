@@ -135,6 +135,7 @@ class BukuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Buku::where('slug', $id)->delete();
+        return redirect('/buku');
     }
 }

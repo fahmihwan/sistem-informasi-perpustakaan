@@ -96,7 +96,7 @@
                                         <th>Tgl Kembali</th>
                                         <th>Status</th>
                                         <th>Petugas</th>
-                                        <th>Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -114,13 +114,7 @@
                                                 </div>
                                             </td>
                                             <td>{{ $item->petugas->credential->nama }}</td>
-                                            <td class="d-flex justify-content-center">
 
-                                                <a href="" class="btn btn-sm btn-info">
-                                                    <i class="fa-solid fa-print"></i>
-                                                </a>
-
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -133,7 +127,7 @@
                                         <th>Tgl Kembali</th>
                                         <th>Status</th>
                                         <th>Petugas</th>
-                                        <th>Action</th>
+
                                     </tr>
                                 </tfoot>
                             </table>

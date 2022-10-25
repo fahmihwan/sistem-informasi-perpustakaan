@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('qty');
             $table->string('qty_peminjaman');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
