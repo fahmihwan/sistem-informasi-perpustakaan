@@ -16,23 +16,29 @@ class ReportController extends Controller
             'buku:id,judul',
             'anggota:id,nama,role_id',
             'anggota.role:id,nama',
+            'petugas:id,credential_id',
+            'petugas.credential:id,nama',
         ])->latest()->get();
-
-        return $peminjaman;
-
         return view('pages.report.peminjaman', [
             'items' => $peminjaman
         ]);
     }
+
+    public function search_peminjaman()
+    {
+    }
+
     public function report_pengembalian()
     {
         $items = Pengembalian::with([
             'buku:id,judul',
             'anggota:id,nama,role_id',
-            'anggota.role:id,nama'
+            'anggota.role:id,nama',
+            'petugas:id,credential_id',
+            'petugas.credential:id,nama',
         ])->latest()->get();
 
-
+        // return $items;
         return view('pages.report.pengembalian', [
             'items' => $items
         ]);

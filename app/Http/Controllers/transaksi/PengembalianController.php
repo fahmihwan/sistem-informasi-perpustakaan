@@ -26,7 +26,7 @@ class PengembalianController extends Controller
             'anggota:id,nama,role_id',
             'anggota.role:id,nama'
         ])->latest()->get();
-        // return $items;
+
         return view('pages.transaksi.pengembalian.index', [
             'items' => $items
         ]);

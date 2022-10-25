@@ -160,4 +160,9 @@ class AuthController extends Controller
     {
         //
     }
+
+    public function demo_create()
+    {
+        return view('welcome');
+    }
 }

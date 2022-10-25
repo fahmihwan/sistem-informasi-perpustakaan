@@ -4,7 +4,6 @@ use App\Http\Controllers\anggota\AnggotaController;
 use App\Http\Controllers\anggota\RoleController;
 use App\Http\Controllers\authentication\AuthController;
 use App\Http\Controllers\buku\BukuController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\master_buku\KategoriController;
 use App\Http\Controllers\master_buku\PenerbitController;
@@ -14,7 +13,7 @@ use App\Http\Controllers\master_buku\Tahun_terbitController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\transaksi\PeminjamanController;
 use App\Http\Controllers\transaksi\PengembalianController;
-use App\Models\Pengembalian;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,4 +62,4 @@ Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::Post('/login', [AuthController::class, 'authenticate']);
 Route::Post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/create', [Controller::class, 'create']);
+Route::get('/demo/create', [AuthController::class, 'demo_create']);

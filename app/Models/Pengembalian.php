@@ -18,4 +18,9 @@ class Pengembalian extends Model
     {
         return $this->belongsTo(Anggota::class);
     }
+
+    public function petugas()
+    {
+        return $this->belongsTo(Petugas::class);
+    }
 }

@@ -80,9 +80,6 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between" style="width: 100%">
                                 <h3 class="card-title">List Pengembalian</h3>
-                                <a href="/transaksi/pengembalian/create" type="button" class="btn btn-sm btn-primary">
-                                    <i class="fa-solid fa-plus"></i> Tambah Data
-                                </a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -95,6 +92,7 @@
                                         <th>Buku</th>
                                         <th>Denda</th>
                                         <th>Tgl Pengembalian</th>
+                                        <th>Petugas</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -105,12 +103,9 @@
                                             <td>{{ $item->anggota->nama }} - [{{ $item->anggota->role->nama }}] </td>
                                             <td>{{ $item->buku->judul }}</td>
                                             <td>Rp. {{ $item->denda }} </td>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td>{{ $item->tanggal_pengembalian }}</td>
+                                            <td>{{ $item->petugas->credential->nama }}</td>
                                             <td class="d-flex justify-content-center">
-                                                {{-- <a href="/anggota/role/{{ $item->id }}/edit"
-                                                    class="btn btn-sm btn-warning mr-2">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a> --}}
                                                 <a href="" class="btn btn-sm btn-info">
                                                     <i class="fa-solid fa-print"></i>
                                                 </a>
@@ -125,6 +120,7 @@
                                         <th>Buku</th>
                                         <th>Denda</th>
                                         <th>Tgl Pengembalian</th>
+                                        <th>Petugas</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>

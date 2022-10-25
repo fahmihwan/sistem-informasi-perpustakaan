@@ -72,10 +72,6 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between" style="width: 100%">
                                 <h3 class="card-title">List Peminjaman </h3>
-                                <!-- Button trigger modal -->
-                                <a href="/transaksi/peminjaman/create" type="button" class="btn btn-sm btn-primary">
-                                    <i class="fa-solid fa-plus"></i> Tambah Data
-                                </a>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -101,26 +97,15 @@
                                             <td>{{ $item->buku->judul }}</td>
                                             <td>{{ $item->tanggal_pinjam }}</td>
                                             <td>{{ $item->tanggal_kembali }}</td>
-
                                             <td>
                                                 <div
                                                     class="badge {{ $item->status == 'dipinjam' ? 'bg-danger' : 'bg-success' }}">
-                                                    {{ $item->status }}</div>
+                                                    {{ $item->status }}
+                                                </div>
                                             </td>
-                                            <td>{{ $item->tanggal_kembali }}</td>
+                                            <td>{{ $item->petugas->credential->nama }}</td>
                                             <td class="d-flex justify-content-center">
-                                                {{-- <a href="/transaksi/peminjaman/{{ $item->id }}/edit"
-                                                    class="btn btn-sm btn-warning mr-2">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a> --}}
-                                                {{-- <form action="/transaksi/peminjaman/{{ $item->id }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-sm btn-danger"
-                                                        onClick="return confirm('Are you sure?')">
-                                                        <i class="fa-regular fa-trash-can"></i>
-                                                    </button>
-                                                </form> --}}
+
                                                 <a href="" class="btn btn-sm btn-info">
                                                     <i class="fa-solid fa-print"></i>
                                                 </a>
@@ -137,6 +122,7 @@
                                         <th>Tgl Pinjam</th>
                                         <th>Tgl Kembali</th>
                                         <th>Status</th>
+                                        <th>Petugas</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
