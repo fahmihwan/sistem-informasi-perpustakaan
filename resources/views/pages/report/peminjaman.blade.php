@@ -22,7 +22,15 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+    @if ($errors->any())
+        <div class="alert alert-danger  m-1">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <section class="content">
         <div class="container-fluid ">
@@ -49,7 +57,7 @@
                                         style="height: 40px">
                                         <i class="fa-solid fa-print"></i>
                                     </button>
-                                    <a href="/report/pemin" class="btn btn-warning ml-2 ms-2" style="height: 40px">
+                                    <a href="/report/peminjaman" class="btn btn-warning ml-2 ms-2" style="height: 40px">
                                         <i class="fas fa-sync-alt"></i>
                                     </a>
                                 </div>
@@ -60,6 +68,8 @@
             </div>
         </div>
     </section>
+
+
 
     <!-- Main content -->
     <div class="content">

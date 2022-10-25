@@ -42,9 +42,12 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between" style="width: 100%">
                                 <h3 class="card-title">List Buku</h3>
-                                <a href="/buku/create" type="button" class="btn btn-sm btn-primary">
-                                    <i class="fa-solid fa-plus"></i> Tambah Data
-                                </a>
+                                <form action="" method="GET">
+                                    <button name="print" value="ok" class="btn btn-primary ml-2 ms-2"
+                                        style="height: 40px">
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -61,7 +64,6 @@
                                         <th>Rak</th>
                                         <th>Qty</th>
                                         <th style="width: 10px">Qty Peminjaman</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,38 +78,10 @@
                                             <td>{{ $item->rak->nama }}</td>
                                             <td>{{ $item->qty }}</td>
                                             <td>{{ $item->qty_peminjaman }}</td>
-                                            <td class="d-flex">
-                                                <a href="/buku/{{ $item->slug }}/edit"
-                                                    class="btn btn-sm btn-warning mr-2">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                                <form action="/buku/{{ $item->slug }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-sm btn-danger"
-                                                        onClick="return confirm('Are you sure?')">
-                                                        <i class="fa-regular fa-trash-can"></i>
-                                                    </button>
-                                                </form>
-
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Judul</th>
-                                        <th>Pengarang</th>
-                                        <th>Penerbit</th>
-                                        <th>Tahun Terbit</th>
-                                        <th>Kategori</th>
-                                        <th>Rak</th>
-                                        <th>Qty</th>
-                                        <th style="width: 10px">Qty Peminjaman</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                         <!-- /.card-body -->

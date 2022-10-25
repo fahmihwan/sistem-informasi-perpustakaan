@@ -16,7 +16,6 @@ class KategoriController extends Controller
      */
     public function index()
     {
-
         $items = Kategori::all();
         return view('pages.master_buku.kategori.index', [
             'items' => $items

@@ -40,13 +40,13 @@
 
 <body>
     <div class="header">
-        <h4>Laporan Peminjaman</h4> <br>
+        <h4>Laporan Buku</h4> <br>
         <h6 style="font-size: 12px;">Perpustakaan SMP Muhammadiyah 2 Gamping</h6>
         <p style="font-size: 12px">
             Jl. Godean, Gamping, Sleman, Area Sawah, Nogotirto, Sleman, Kabupaten Sleman, Provinsi Daerah Istimewa
             Yogyakarta, 55592.
         </p>
-        <p style="margin: 5px">Periode : {{ request('start_date') }} sampai {{ request('end_date') }}</p>
+        <p style="margin: 5px">Tanggal : {{ date('d-m-Y') }}</p>
 
     </div>
     <div class="container">
@@ -56,33 +56,31 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Buku</th>
-                        <th>Tgl Pinjam</th>
-                        <th>Tgl Kembali</th>
-                        <th>Status</th>
-                        <th>Petugas</th>
+                        <th>Judul</th>
+                        <th>Pengarang</th>
+                        <th>Penerbit</th>
+                        <th>Tahun Terbit</th>
+                        <th>Kategori</th>
+                        <th>Rak</th>
+                        <th>Qty</th>
+                        <th style="width: 10px">Qty Peminjaman</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($items as $item)
                         <tr>
-                            <td>{{ $loop->iteration }} </td>
-                            <td>{{ $item->anggota->nama }} ({{ $item->anggota->role->nama }})</td>
-                            <td>{{ $item->buku->judul }}</td>
-                            <td>{{ $item->tanggal_pinjam }}</td>
-                            <td>{{ $item->tanggal_kembali }}</td>
-                            <td>
-                                <div class="badge {{ $item->status == 'dipinjam' ? 'bg-danger' : 'bg-success' }}">
-                                    {{ $item->status }}
-                                </div>
-                            </td>
-                            <td>{{ $item->petugas->credential->nama }}</td>
-
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->judul }}</td>
+                            <td>{{ $item->pengarang->nama }}</td>
+                            <td>{{ $item->penerbit->nama }}</td>
+                            <td>{{ $item->tahun_terbit->nama }}</td>
+                            <td>{{ $item->kategori->nama }}</td>
+                            <td>{{ $item->rak->nama }}</td>
+                            <td>{{ $item->qty }}</td>
+                            <td>{{ $item->qty_peminjaman }}</td>
                         </tr>
                     @endforeach
                 </tbody>
-
             </table>
         </div>
 

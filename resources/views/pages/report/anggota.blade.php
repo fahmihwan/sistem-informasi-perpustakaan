@@ -43,10 +43,12 @@
                             <div class="d-flex justify-content-between" style="width: 100%">
                                 <h3 class="card-title">List Anggota </h3>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                    <i class="fa-solid fa-plus"></i> Tambah Data
-                                </button>
+                                <form action="" method="GET">
+                                    <button name="print" value="ok" class="btn btn-primary ml-2 ms-2"
+                                        style="height: 40px">
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -59,7 +61,6 @@
                                         <th>Role</th>
                                         <th>Telp</th>
                                         <th>Created</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,21 +71,7 @@
                                             <td>{{ $item->role->nama }}</td>
                                             <td>{{ $item->telp }}</td>
                                             <td>{{ $item->created_at }}</td>
-                                            <td class="d-flex">
-                                                <a href="/anggota/anggota/{{ $item->id }}/edit"
-                                                    class="btn btn-sm btn-warning mr-2">
-                                                    <i class="fa-regular fa-pen-to-square"></i>
-                                                </a>
-                                                <form action="/anggota/anggota{{ $item->id }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-sm btn-danger"
-                                                        onClick="return confirm('Are you sure?')">
-                                                        <i class="fa-regular fa-trash-can"></i>
-                                                    </button>
-                                                </form>
 
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -95,7 +82,7 @@
                                         <th>Role</th>
                                         <th>Telp</th>
                                         <th>Created</th>
-                                        <th>Action</th>
+
                                     </tr>
                                 </tfoot>
                             </table>
