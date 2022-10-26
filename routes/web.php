@@ -13,7 +13,7 @@ use App\Http\Controllers\master_buku\Tahun_terbitController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\transaksi\PeminjamanController;
 use App\Http\Controllers\transaksi\PengembalianController;
-
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +29,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard/anggota/{id}', [DashboardController::class, 'show_sendang_meminjam']);
+    Route::get('/dashboard/list-jatuh-tempo', [DashboardController::class, 'show_jatuh_tempo']);
+    Route::get('/dashboard/list-peminjaman-bulan-ini', [DashboardController::class, 'show_peminjaman_bulan_ini']);
+});
+
+
 
 Route::middleware(['auth', 'role:petugas'])->group(function () {
     Route::resource('/master-buku/kategori', KategoriController::class);

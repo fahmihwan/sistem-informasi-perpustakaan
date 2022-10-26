@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
     <div class="content">
         @if ($errors->any())
             <div class="alert alert-danger p-0" role="alert">

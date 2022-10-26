@@ -17,7 +17,7 @@ class AnggotaFactory extends Factory
     public function definition()
     {
         return [
-            'nama' => 'whid',
+            'nama' => fake()->name(),
             'role_id' => 1,
             'telp' => '08213123'
         ];

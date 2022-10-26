@@ -10,8 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v1</li>
+                        <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -34,7 +33,8 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/report/buku" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -48,7 +48,7 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="/anggota/anggota" class="small-box-footer">More info <i
+                        <a href="/report/anggota" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -63,7 +63,8 @@
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/dashboard/list-peminjaman-bulan-ini" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -77,7 +78,8 @@
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/dashboard/list-jatuh-tempo" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -92,8 +94,14 @@
                             <div class="d-flex justify-content-between">
                                 <h3 class="card-title">Transaksi</h3>
                                 <div>
-                                    <a href="javascript:void(0);" class="mr-2"> peminjaman</a>
-                                    <a href="javascript:void(0);"> pengembalian</a>
+                                    @if (auth()->user()->hak_akses == 'kepala_sekolah')
+                                        <a href="/report/peminjaman" class="mr-2"> peminjaman</a>
+                                        <a href="/report/pengembalian"> pengembalian</a>
+                                    @endif
+                                    @if (auth()->user()->hak_akses == 'petugas')
+                                        <a href="/transaksi/peminjaman" class="mr-2"> peminjaman</a>
+                                        <a href="/transaksi/pengembalian"> pengembalian</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -130,12 +138,17 @@
                                 <span class="font-weight-bold">Nama</span>
                                 <span class="font-weight-bold">Jatuh Tempo</span>
                             </div>
-                            <div style="height: 270px; overflow:scroll">
-                                <table style="width: 100%">
-                                    <tr>
-                                        <td>Angga (Siswa)</td>
-                                        <td class="text-right">2022-02-11</td>
-                                    </tr>
+                            <div style="height: 242px; overflow:scroll">
+                                <table style="width: 100%" class="table ">
+                                    @foreach ($sedang_meminjam as $data)
+                                        <tr class="p-0">
+                                            <td class="py-1 px-0"><a
+                                                    href="/dashboard/anggota/{{ $data->anggota->id }}">{{ $data->anggota->nama }}({{ $data->anggota->role->nama }})</a>
+                                            </td>
+                                            <td class="text-right p-1 px-0">{{ $data->tanggal_kembali }}</td>
+                                        </tr>
+                                    @endforeach
+
                                 </table>
                             </div>
                         </div>
@@ -159,6 +172,11 @@
 
         $(function() {
             'use strict'
+
+            let peminjaman_php = {{ Js::from($chart_peminjaman) }};
+
+            let pengembalian_php = {{ Js::from($chart_pengembalian) }};
+
 
             var ticksStyle = {
                 fontColor: '#495057',
@@ -188,26 +206,27 @@
                 data: {
                     labels: createDate,
                     datasets: [{
+                            label: 'Peminjaman',
                             type: 'line',
-                            data: [100, 120, 170, 167, 180, 177, 160, 11, 22, 33, 44, 43],
+                            data: peminjaman_php,
                             backgroundColor: 'transparent',
-                            borderColor: '#007bff',
+                            borderColor: '#4bde97',
                             pointBorderColor: '#007bff',
-                            pointBackgroundColor: '#007bff',
-                            fill: false
-                            // pointHoverBackgroundColor: '#007bff',
-                            // pointHoverBorderColor    : '#007bff'
+                            // pointBorderColor: '#4bde97',
+                            // pointBackgroundColor: '#007bff',
+                            pointBackgroundColor: '#4bde97',
+                            fill: false,
                         },
                         {
+                            label: 'Pengembalian',
                             type: 'line',
-                            data: [60, 80, 70, 67, 80, 77, 100],
+                            data: pengembalian_php,
                             backgroundColor: 'tansparent',
-                            borderColor: '#ced4da',
+                            // borderColor: '#ced4da',
+                            borderColor: '#da291c',
                             pointBorderColor: '#ced4da',
-                            pointBackgroundColor: '#ced4da',
+                            pointBackgroundColor: '#da291c',
                             fill: false
-                            // pointHoverBackgroundColor: '#ced4da',
-                            // pointHoverBorderColor    : '#ced4da'
                         }
                     ]
                 },
@@ -222,7 +241,7 @@
                         intersect: intersect
                     },
                     legend: {
-                        display: false
+                        // display: true
                     },
                     scales: {
                         yAxes: [{
@@ -234,14 +253,14 @@
                                 zeroLineColor: 'transparent'
                             },
                             ticks: $.extend({
-                                beginAtZero: true,
-                                suggestedMax: 200
+                                beginAtZero: false,
+                                // suggestedMax: 200
                             }, ticksStyle)
                         }],
                         xAxes: [{
                             display: true,
                             gridLines: {
-                                display: false
+                                display: true
                             },
                             ticks: ticksStyle
                         }]
