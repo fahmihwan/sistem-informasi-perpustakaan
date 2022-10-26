@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Peminjaman extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = "peminjamans";
     protected $guarded = ['id'];
 
@@ -24,6 +25,12 @@ class Peminjaman extends Model
     {
         return $this->belongsTo(Petugas::class)->withTrashed();
     }
+
+    public function credential()
+    {
+        return $this->belongsTo(Credential::class)->withTrashed();
+    }
+
 
     public function scopeFilter($query, array $filters)
     {

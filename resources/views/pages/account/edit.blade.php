@@ -1,10 +1,8 @@
 @extends('component.main')
 
 @section('style')
-    <!-- DataTables -->
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @endsection
 
 @section('container')
@@ -13,11 +11,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Buku</h1>
+                    <h1 class="m-0">Tambah Account</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><a href="/buku">Buku</a></li>
+                        <li class="breadcrumb-item active"><a href="/account">Account</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div><!-- /.col -->
@@ -29,164 +27,145 @@
 
     <!-- Main content -->
     <div class="content">
+        @if ($errors->any())
+            <div class="alert alert-danger p-0" role="alert">
+                <ul class="my-2">
+                    @foreach ($errors->all() as $error)
+                        <li> {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="container-fluid">
             <div class="row ">
-                <div class="col-md-10 ">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
                                 Form Buku
-                                <a href="/buku"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+                                <a href="/account"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="/buku" method="POST">
+                            <form action="/account/{{ $item->id }}" method="POST">
+                                @method('PUT')
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 px-4">
                                         <div class="form-group">
-                                            <label for="title">Judul</label>
-                                            <input type="text" name="judul"
-                                                class="form-control @error('judul') is-invalid @enderror" id="title"
-                                                placeholder="input judul" autocomplete="off" required
-                                                value="{{ old('judul', $buku->judul) }}">
-                                            @error('judul')
+                                            <label for="title">Nama</label>
+                                            <input type="text" name="nama"
+                                                class="form-control @error('nama') is-invalid @enderror" id="title"
+                                                placeholder="input nama" autocomplete="off" required
+                                                value="{{ old('nama', $item->credential->nama) }}">
+                                            @error('nama')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="title">Slug</label>
-                                            <input type="text" name="slug"
-                                                class="form-control @error('slug') is-invalid @enderror" id="slug"
-                                                placeholder="input slug" autocomplete="off" required
-                                                aria-describedby="kategori_alert" value="{{ old('slug', $buku->slug) }}">
-                                            @error('slug')
-                                                <div id="kategori_alert" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <!-- /.form-group -->
-                                        <div class="form-group">
-                                            <label>Pengarang</label>
-                                            <select name="pengarang_id"
-                                                class="form-control select2 @error('pengarang_id') is-invalid @enderror"
-                                                style="width: 100%;">
-                                                @foreach ($pengarangs as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        {{ old('pengarang_id') == $buku->pengarang_id ? 'selected' : '' }}>
-                                                        {{ $item->nama }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('pengarang_id')
+                                            <label for="title">Telp</label>
+                                            <input type="number" name="telp"
+                                                class="form-control @error('telp') is-invalid @enderror" id="title"
+                                                placeholder="Telp" autocomplete="off" required
+                                                value="{{ old('telp', $item->credential->telp) }}">
+                                            @error('telp')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label>Penerbit</label>
-                                            <select name="penerbit_id"
-                                                class="form-control select2 @error('penerbit_id') is-invalid @enderror"
-                                                style="width: 100%;">
-                                                <option disabled selected="selected"> -- select -- </option>
-                                                @foreach ($penerbits as $item)
-                                                    @if (old('penerbit_id') == $item->id)
-                                                        <option value="{{ $item->id }}" selected>{{ $item->nama }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                            @error('penerbit_id')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
+                                            <label class="" for="title">Hak Akses</label>
+                                            <div class="">
+                                                <div class="icheck-primary mr-4 d-inline">
+                                                    <input type="radio" name="hak_akses"
+                                                        {{ $item->hak_akses == 'petugas' ? 'checked' : '' }} value="petugas"
+                                                        id="radioDanger1">
+                                                    <label class="font-weight-normal" for="radioDanger1">Petugas</label>
                                                 </div>
-                                            @enderror
+                                                <div class="icheck-primary d-inline">
+                                                    <input type="radio" name="hak_akses"
+                                                        {{ $item->hak_akses == 'kepala_sekolah' ? 'checked' : '' }}
+                                                        value="kepala_sekolah" id="radioDanger2">
+                                                    <label class="font-weight-normal" for="radioDanger2"> Kepala
+                                                        Sekolah</label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <!-- /.form-group -->
                                     </div>
                                     <div class="col-md-6 px-4">
                                         <div class="form-group">
-                                            <label>Tahun Terbit</label>
-                                            <select name="tahun_terbit_id"
-                                                class="form-control select2  @error('tahun_terbit_id') is-invalid @enderror"
-                                                style="width: 100%;">
-                                                <option disabled selected="selected"> -- select -- </option>
-                                                @foreach ($tahun_terbits as $item)
-                                                    @if (old('tahun_terbit_id') == $item->id)
-                                                        <option value="{{ $item->id }}" selected>{{ $item->nama }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                            @error('tahun_terbit_id')
+                                            <label for="title">Username</label>
+                                            <input type="text" name="username"
+                                                class="form-control @error('username') is-invalid @enderror" id="title"
+                                                placeholder="input username" autocomplete="off" required
+                                                value="{{ old('username', $item->username) }}">
+                                            @error('username')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
+
                                         <div class="form-group">
-                                            <label>Rak</label>
-                                            <select name="rak_id"
-                                                class="form-control select2 @error('rak_id') is-invalid @enderror"
-                                                style="width: 100%;">
-                                                <option disabled selected="selected"> -- select -- </option>
-                                                @foreach ($raks as $item)
-                                                    @if (old('rak_id') == $item->id)
-                                                        <option value="{{ $item->id }}" selected>{{ $item->nama }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                            @error('rak_id')
-                                                <div class="invalid-feedback">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="reset_password">
+                                                <label class="custom-control-label" for="reset_password">Reset
+                                                    Password? </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="title">New Password</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="password"
+                                                    class="form-control confirm_password @error('password') is-invalid @enderror"
+                                                    placeholder="password" autocomplete="off" value="{{ old('password') }}"
+                                                    disabled>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text password-hidden" id="password-hidden"
+                                                        style="cursor: pointer">
+                                                        <i id="eye" class="eye fa-regular fa-eye"></i>
+                                                        <i id="eye-slash" style="display: none"
+                                                            class="eye-slash fa-regular fa-eye-slash"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @error('password')
+                                                <div id="password" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label>Kategori</label>
-                                            <select name="kategori_id"
-                                                class="form-control select2 @error('kategori_id') is-invalid @enderror"
-                                                style="width: 100%;">
-                                                <option disabled selected="selected"> -- select -- </option>
-                                                @foreach ($kategoris as $item)
-                                                    @if (old('kategori_id') == $item->id)
-                                                        <option value="{{ $item->id }}" selected>{{ $item->nama }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                            @error('kategori_id')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
+                                            <label for="title">Confirm New Password</label>
+                                            <div class="input-group mb-3 sssss">
+                                                <input type="text"
+                                                    class="form-control @error('confirm_password')
+                                                        is-invalid
+                                                @enderror confirm_password"
+                                                    placeholder="confirm password" name="confirm_password" disabled>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text password-hidden" id="password-hidden"
+                                                        style="cursor: pointer">
+                                                        <i id="eye" class="eye fa-regular fa-eye"></i>
+                                                        <i id="eye-slash" style="display: none"
+                                                            class="eye-slash fa-regular fa-eye-slash"></i>
+                                                    </span>
                                                 </div>
-                                            @enderror
+                                                @error('confirm_password')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="title">Qty</label>
-                                            <input type="number" name="qty"
-                                                class="form-control @error('qty') is-invalid @enderror"
-                                                placeholder="input qty" autocomplete="off" required
-                                                value="{{ old('qty') }}">
-                                            @error('qty')
-                                                <div id="qty" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                            <button type="submit" class="btn btn-primary float-right">Submit</button>
                                         </div>
-                                        <button type="submit" class="btn btn-primary float-right">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -210,16 +189,29 @@
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.select2').select2()
-        });
 
-        const title = document.querySelector("#title");
-        const slug = document.querySelector("#slug");
+            $('#reset_password').click(function() {
+                let isChecked = $(this).is(':checked');
+                if (isChecked) {
+                    $('.confirm_password').attr('disabled', false)
+                } else {
+                    $('.confirm_password').attr('disabled', true)
+                }
+            })
 
-        title.addEventListener("keyup", function() {
-            let preslug = title.value;
-            preslug = preslug.replace(/ /g, "-");
-            slug.value = preslug.toLowerCase();
-        });
+
+            $('.password-hidden').click(function() {
+                if ($('.eye-slash').css('display') == 'none') {
+                    $('.eye-slash').show();
+                    $('.eye').hide()
+                    $('.confirm_password').attr('type', 'password')
+                } else {
+                    $('.eye-slash').hide()
+                    $('.eye').show()
+                    $('.confirm_password').attr('type', 'text')
+                }
+            })
+
+        })
     </script>
 @endsection

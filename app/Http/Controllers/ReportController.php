@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use App\Models\Buku;
+use App\Models\Credential;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
+use App\Models\Petugas;
 use PDF;
 
 class ReportController extends Controller
@@ -31,8 +33,9 @@ class ReportController extends Controller
                 'anggota:id,nama,role_id',
                 'anggota.role:id,nama',
                 'petugas:id,credential_id',
-                'petugas.credential:id,nama',
-            ])->latest()->get();
+                'petugas.credential:id,nama'
+            ])
+                ->latest()->get();
         }
         return view('pages.report.peminjaman', [
             'items' => $data

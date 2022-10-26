@@ -69,10 +69,11 @@
                                             <td>{{ $item->credential->telp }}</td>
                                             <td>{{ $item->hak_akses }}</td>
                                             <td class="d-flex">
-                                                <a href="" class="btn btn-sm btn-warning mr-2">
+                                                <a href="/account/{{ $item->id }}/edit"
+                                                    class="btn btn-sm btn-warning mr-2">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
-                                                <form action="" method="post">
+                                                <form action="/account/{{ $item->id }}" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-sm btn-danger"

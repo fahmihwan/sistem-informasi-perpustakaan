@@ -185,7 +185,6 @@
                     $('.confirm_password').attr('type', 'text')
                 }
             })
-
         })
     </script>
 @endsection

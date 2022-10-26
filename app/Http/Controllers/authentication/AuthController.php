@@ -91,7 +91,6 @@ class AuthController extends Controller
             return redirect('/account/create')->withErrors('password harus sama');
         }
 
-
         try {
             DB::beginTransaction();
 
@@ -125,7 +124,6 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -136,7 +134,11 @@ class AuthController extends Controller
      */
     public function edit($id)
     {
-        //
+        $items = Petugas::with('credential')->where('id', $id)->first();
+        // return $items;
+        return view('pages.account.edit', [
+            'item' =>  $items
+        ]);
     }
 
     /**
@@ -148,7 +150,46 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $validated =  $request->validate([
+            'nama' => 'required',
+            'username' => 'required',
+            'telp' => 'required|numeric',
+            'hak_akses' => 'required',
+        ]);
+
+        $credential_id =  Petugas::where('id', $id)->first()->credential_id;
+
+        if ($request->password) {
+            if ($request->password != $request->confirm_password) {
+                return redirect()->back()->withErrors('password harus sama');
+            }
+            $petugas = [
+                'username' => $validated['username'],
+                'password' => Hash::make($request->password),
+                'hak_akses' => $validated['hak_akses']
+            ];
+        }
+        $petugas = [
+            'username' => $validated['username'],
+            'hak_akses' => $validated['hak_akses']
+        ];
+
+        try {
+            DB::beginTransaction();
+            Petugas::where('id', $id)->update($petugas);
+            Credential::where('id', $credential_id)->update([
+                'nama' => $validated['nama'],
+                'telp' => $validated['telp']
+            ]);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return redirect()->back()->withErrors($th->getMessage());
+        }
+        return redirect('/account');
     }
 
     /**
@@ -159,7 +200,22 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $credential_id = Petugas::where('id', $id)->first()->credential_id;
+        try {
+            DB::beginTransaction();
+
+            Petugas::destroy($id);
+            Credential::where('id', $credential_id)->delete();
+
+            DB::commit();
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+            return redirect()->back()->withErrors($th->getMessage());
+        }
+
+        return redirect('/account');
     }
 
     public function demo_create()

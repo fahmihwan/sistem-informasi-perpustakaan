@@ -47,6 +47,6 @@ class Petugas extends Authenticatable
 
     public function credential()
     {
-        return $this->belongsTo(Credential::class);
+        return $this->belongsTo(Credential::class)->withTrashed();
     }
 }

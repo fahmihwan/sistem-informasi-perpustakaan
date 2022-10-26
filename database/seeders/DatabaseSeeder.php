@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tahun_terbit::factory(1)->create();
         \App\Models\Role::factory(1)->create();
         \App\Models\Anggota::factory(1)->create();
+        \App\Models\Buku::factory(5)->create();
+
+
 
 
         // \App\Models\User::factory()->create([

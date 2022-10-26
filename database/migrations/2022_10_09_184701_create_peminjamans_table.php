@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('petugas_id');
             $table->enum('status', ['dipinjam', 'dikembalikan']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
