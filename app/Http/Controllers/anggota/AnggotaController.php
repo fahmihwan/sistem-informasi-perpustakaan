@@ -16,7 +16,6 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-
         $role = Role::all();
         $items = Anggota::with('role')->latest()->get();
         return view('pages.master_anggota.anggota.index', [
@@ -97,7 +96,6 @@ class AnggotaController extends Controller
         ]);
 
         Anggota::where('id', $id)->update($validated);
-
         return redirect('/anggota/anggota');
     }
 

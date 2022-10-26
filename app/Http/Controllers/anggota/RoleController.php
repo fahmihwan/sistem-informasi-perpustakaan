@@ -40,7 +40,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $validated =  $request->validate([
-            'nama' => 'required|unique:roles'
+            'nama' => 'required'
         ]);
 
         Role::create($validated);
@@ -66,7 +66,6 @@ class RoleController extends Controller
     public function edit($id)
     {
         $item = Role::where('id', $id)->first();
-
         return view('pages.master_anggota.role.edit', [
             'item' => $item
         ]);
@@ -82,9 +81,8 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama' => 'required|unique:roles',
+            'nama' => 'required',
         ]);
-
         Role::where('id', $id)->update($validated);
 
         return redirect('/anggota/role');

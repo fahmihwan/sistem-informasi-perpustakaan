@@ -40,7 +40,7 @@ class PenerbitController extends Controller
     public function store(Request $request)
     {
         $validated =  $request->validate([
-            'nama' => 'required|unique:penerbits'
+            'nama' => 'required'
         ]);
 
         Penerbit::create($validated);
@@ -82,7 +82,7 @@ class PenerbitController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama' => 'required|unique:penerbits',
+            'nama' => 'required',
         ]);
 
         Penerbit::where('id', $id)->update($validated);

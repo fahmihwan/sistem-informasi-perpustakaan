@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use App\Models\Buku;
-use App\Models\Credential;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
-use App\Models\Petugas;
 use PDF;
 
 class ReportController extends Controller
@@ -51,7 +49,6 @@ class ReportController extends Controller
             if ($data->count() == 0) {
                 return redirect('/report/peminjaman')->withErrors('Data tanggal ' . request('start_date') . ' sampai ' . request('end_date') . ' tidak ada');
             }
-
             $pdf = PDF::loadview('pages.print.print_date.pengembalian', ['items' => $data->get()]);
             return $pdf->download('laporan_pengembalian.pdf');
         }
@@ -77,7 +74,6 @@ class ReportController extends Controller
 
     public function report_buku()
     {
-
         $buku = Buku::with([
             'pengarang:id,nama',
             'penerbit:id,nama',

@@ -39,7 +39,7 @@ class PengarangController extends Controller
     public function store(Request $request)
     {
         $validated =  $request->validate([
-            'nama' => 'required|unique:pengarangs'
+            'nama' => 'required'
         ]);
 
         Pengarang::create($validated);
@@ -81,7 +81,7 @@ class PengarangController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama' => 'required|unique:pengarangs',
+            'nama' => 'required',
         ]);
 
         Pengarang::where('id', $id)->update($validated);

@@ -40,7 +40,7 @@ class Tahun_terbitController extends Controller
     public function store(Request $request)
     {
         $validated =  $request->validate([
-            'nama' => 'required|unique:tahun_terbits|numeric|min:4'
+            'nama' => 'required|numeric|min:4'
         ]);
 
         Tahun_terbit::create($validated);
@@ -82,7 +82,7 @@ class Tahun_terbitController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama' => 'required|unique:tahun_terbits',
+            'nama' => 'required|numeric|min:4',
         ]);
 
         Tahun_terbit::where('id', $id)->update($validated);

@@ -42,7 +42,7 @@ class KategoriController extends Controller
     {
 
         $validated =  $request->validate([
-            'nama' => 'required|unique:kategoris'
+            'nama' => 'required'
         ]);
         Kategori::create($validated);
         return redirect('/master-buku/kategori');
@@ -83,7 +83,7 @@ class KategoriController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama' => 'required|unique:kategoris',
+            'nama' => 'required',
         ]);
 
         Kategori::where('id', $id)->update($validated);
