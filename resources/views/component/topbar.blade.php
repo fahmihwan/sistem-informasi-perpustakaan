@@ -44,10 +44,10 @@
                 <i class="fa-solid fa-gear"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {{-- @if (auth()->user()->hak_akses == 'kepala_sekolah') --}}
+                @if (auth()->user()->hak_akses == 'kepala_sekolah')
                 <a class="dropdown-item" href="/account">Account</a>
                 <div class="dropdown-divider"></div>
-                {{-- @endif --}}
+                @endif
 
                 <form action="/logout" method="POST">
                     @csrf
