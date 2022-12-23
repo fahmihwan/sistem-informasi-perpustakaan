@@ -25,11 +25,17 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
+                @if (session('loginError'))
+                <div class="alert alert-danger">
+                    {{ session('loginError') }}
+                </div>
+                @endif
+
                 <p class="login-box-msg">Sistem Informasi Perpustakaan</p>
                 <form action="/login" method="POST">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="username">
+                        <input type="text" class="form-control" placeholder="Username" name="username" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -37,7 +43,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

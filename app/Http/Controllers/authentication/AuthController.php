@@ -35,7 +35,7 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard');
         }
 
-        return back()->with('loginError', 'Login failed!');
+        return back()->with('loginError', 'Login gagal!');
     }
 
 
@@ -49,10 +49,7 @@ class AuthController extends Controller
 
     public function index()
     {
-
         $items =  Petugas::with(['credential'])->latest()->get();
-
-
         return view('pages.account.index', [
             'items' =>  $items
         ]);
@@ -76,7 +73,6 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated =  $request->validate([
             'nama' => 'required',
             'username' => 'required',
@@ -150,7 +146,6 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $validated =  $request->validate([
             'nama' => 'required',
             'username' => 'required',
