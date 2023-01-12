@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Peminjaman</h1>
+                    <h1 class="m-0">Tambah Peminjaman </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -259,16 +259,20 @@
 
             $('#tgl_pinjam').change(function() {
                 let date = new Date($(this).val())
-                $('#tgl_kembali').val(renderInputDate(date))
+                date.setDate(date.getDate() + 7);
+                let set_date = date.toISOString().slice(0, 10);
+                let sortDate = set_date.split('/')
+                let tgl_kembali = sortDate.reverse().join('-')
+                $('#tgl_kembali').val(tgl_kembali)
             })
 
-            function renderInputDate(date) {
-                date.setDate(date.getDate() + 7);
-                let set_date = date.toLocaleDateString();
-                let sortDate = set_date.split('/')
-                let tgl_kembali = `${sortDate[2]}-${sortDate[1]}-${sortDate[0]}`
-                return tgl_kembali;
-            }
+            // function renderInputDate(date) {
+            //     date.setDate(date.getDate() + 7);
+            //     let set_date = date.toLocaleDateString();
+            //     let sortDate = set_date.split('/')
+            //     let tgl_kembali = `${sortDate[2]}-${sortDate[1]}-${sortDate[0]}`
+            //     return tgl_kembali;
+            // }
 
 
         });
