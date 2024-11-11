@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Buku</h1>
+                    <h1 class="m-0">Edit Buku</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -40,7 +40,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="/buku" method="POST">
+
+                            <form action="/buku/{{ $buku->id }}" method="PUT">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 px-4">
@@ -68,6 +69,7 @@
                                                 </div>
                                             @enderror
                                         </div>
+
                                         <!-- /.form-group -->
                                         <div class="form-group">
                                             <label>Pengarang</label>
@@ -75,6 +77,11 @@
                                                 class="form-control select2 @error('pengarang_id') is-invalid @enderror"
                                                 style="width: 100%;">
                                                 @foreach ($pengarangs as $item)
+                                                    @if (isset($buku->id))
+                                                        <option value="{{ $buku->pengarang_id }}"
+                                                            {{ $buku->pengarang_id == $buku->pengarang_id ? 'selected' : '' }}>
+                                                            {{ $item->nama }}
+                                                    @endif
                                                     <option value="{{ $item->id }}"
                                                         {{ old('pengarang_id') == $buku->pengarang_id ? 'selected' : '' }}>
                                                         {{ $item->nama }}

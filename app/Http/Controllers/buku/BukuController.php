@@ -105,6 +105,9 @@ class BukuController extends Controller
         $raks = Rak::latest()->get();
         $kategoris = Kategori::latest()->get();
 
+
+
+
         return view('pages.buku.edit', [
             'buku' => $buku,
             'pengarangs' => $pengarangs,
@@ -124,7 +127,22 @@ class BukuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd(1);
+        // $validated = $request->validate([
+        //     'judul' => 'required',
+        //     'slug' => 'required|unique:bukus',
+        //     'pengarang_id' => 'required|numeric',
+        //     'penerbit_id' => 'required|numeric',
+        //     'tahun_terbit_id' => 'required|numeric',
+        //     'rak_id' => 'required|numeric',
+        //     'kategori_id' => 'required|numeric',
+        // ]);
+
+
+
+        // Buku::where('id', $id)->update($validated);
+
+        // return redirect('/buku');
     }
 
     /**

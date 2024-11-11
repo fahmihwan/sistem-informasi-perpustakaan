@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Petugas;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +16,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        Petugas::create([
+            'username' => 'fahmihwan',
+            'password' => bcrypt('qweqwe123'),
+            'credential_id' => 1,
+            'hak_akses' => 'kepala_sekolah'
+        ]);
+        Petugas::create([
+            'username' => 'daris',
+            'password' => bcrypt('qweqwe123'),
+            'credential_id' => 2,
+            'hak_akses' => 'petugas'
+        ]);
         // \App\Models\User::factory(10)->create();
         \App\Models\Kategori::factory(1)->create();
         \App\Models\Pengarang::factory(1)->create();

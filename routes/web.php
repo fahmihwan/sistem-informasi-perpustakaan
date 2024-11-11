@@ -38,26 +38,25 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-Route::middleware(['auth', 'role:petugas'])->group(function () {
-    Route::resource('/master-buku/kategori', KategoriController::class);
-    Route::resource('/master-buku/pengarang', PengarangController::class);
-    Route::resource('/master-buku/penerbit', PenerbitController::class);
-    Route::resource('/master-buku/rak', RakController::class);
-    Route::resource('/master-buku/tahun-terbit', Tahun_terbitController::class);
-    Route::resource('/buku', BukuController::class);
-    Route::resource('/anggota/anggota', AnggotaController::class);
-    Route::resource('/anggota/role', RoleController::class);
+// Route::middleware(['auth', 'role:petugas'])->group(function () {
+Route::resource('/master-buku/kategori', KategoriController::class);
+Route::resource('/master-buku/pengarang', PengarangController::class);
+Route::resource('/master-buku/penerbit', PenerbitController::class);
+Route::resource('/master-buku/rak', RakController::class);
+Route::resource('/master-buku/tahun-terbit', Tahun_terbitController::class);
+Route::resource('/buku', BukuController::class);
+Route::resource('/anggota/anggota', AnggotaController::class);
+Route::resource('/anggota/role', RoleController::class);
 
-    Route::resource('/transaksi/peminjaman', PeminjamanController::class);
-    Route::get('/transaksi/{id}/anggota', [PeminjamanController::class, 'ajax_detail_anggota']);
-    Route::get('/transaksi/{id}/buku', [PeminjamanController::class, 'ajax_detail_buku']);
-    Route::resource('/transaksi/pengembalian', PengembalianController::class);
-    Route::get('/transaksi/{id}/pengembalian', [PengembalianController::class, 'ajax_detail_pengembalian']);
-    Route::get('/transaksi/{id}/{date}/pengembalian', [PengembalianController::class, 'cek_denda']);
-});
+Route::resource('/transaksi/peminjaman', PeminjamanController::class);
+Route::get('/transaksi/{id}/anggota', [PeminjamanController::class, 'ajax_detail_anggota']);
+Route::get('/transaksi/{id}/buku', [PeminjamanController::class, 'ajax_detail_buku']);
+Route::resource('/transaksi/pengembalian', PengembalianController::class);
+Route::get('/transaksi/{id}/pengembalian', [PengembalianController::class, 'ajax_detail_pengembalian']);
+Route::get('/transaksi/{id}/{date}/pengembalian', [PengembalianController::class, 'cek_denda']);
+// });
 
-Route::middleware(['auth', 'role:kepala_sekolah'])->group(function () {
-});
+Route::middleware(['auth', 'role:kepala_sekolah'])->group(function () {});
 Route::resource('/account', AuthController::class);
 
 Route::get('/report/peminjaman', [ReportController::class, 'report_peminjaman']);
