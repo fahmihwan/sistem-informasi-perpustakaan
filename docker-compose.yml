@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Docker/Dockerfile.nginx.local
+    container_name: sistem_informasi_perpustakaan
+    ports:
+      - "1002:80"
+      - "2002:5173"
+    networks:
+      - internal
+    volumes: 
+      - type: bind
+        source: ./
+        target: /var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - postgresql
+    
+  postgresql:
+    image: postgres:16
+    container_name: sistem_informasi_perpustakaan_postgresql
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sipus_docker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: fahmi123
+    networks:
+      - internal
+    volumes:
+      - sistem_informasi_perpustakaan_postgresql:/var/lib/postgresql/data
+
+networks:
+  internal: 
+    driver: bridge
+
+volumes: 
+  sistem_informasi_perpustakaan_postgresql:
